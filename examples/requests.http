@@ -1,0 +1,116 @@
+### Set API Key
+@apiKey = your-secure-api-key-here
+@baseUrl = http://localhost:3000
+
+### Health Check
+GET {{baseUrl}}/health
+
+### Send Simple Email
+POST {{baseUrl}}/api/email/send
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "to": "recipient@example.com",
+  "subject": "Hello!",
+  "body": "This is a plain text email"
+}
+
+### Send Email with HTML
+POST {{baseUrl}}/api/email/send
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "to": "user@example.com",
+  "subject": "Welcome to MailerPro",
+  "body": "Plain text fallback",
+  "htmlBody": "<h1>Welcome!</h1><p>This is your welcome email.</p>"
+}
+
+### Send Email with CC and BCC
+POST {{baseUrl}}/api/email/send
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "to": "primary@example.com",
+  "cc": ["cc@example.com", "another-cc@example.com"],
+  "bcc": ["bcc@example.com"],
+  "subject": "Meeting Reminder",
+  "body": "Don't forget about our meeting tomorrow at 2 PM",
+  "htmlBody": "<h2>Meeting Reminder</h2><p>Don't forget about our meeting tomorrow at 2 PM</p>"
+}
+
+### Send Email with Reply-To
+POST {{baseUrl}}/api/email/send
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "to": "user@example.com",
+  "replyTo": "support@example.com",
+  "subject": "Support Ticket #12345",
+  "body": "Thank you for contacting us. Our team will respond shortly.",
+  "htmlBody": "<p>Thank you for contacting us. Our team will respond shortly.</p>"
+}
+
+### Send Batch Emails
+POST {{baseUrl}}/api/email/send-batch
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "emails": [
+    {
+      "to": "user1@example.com",
+      "subject": "Welcome User 1",
+      "body": "Hello User 1, welcome to our service!",
+      "htmlBody": "<h1>Welcome!</h1><p>Hello User 1, welcome to our service!</p>"
+    },
+    {
+      "to": "user2@example.com",
+      "subject": "Welcome User 2",
+      "body": "Hello User 2, welcome to our service!",
+      "htmlBody": "<h1>Welcome!</h1><p>Hello User 2, welcome to our service!</p>"
+    },
+    {
+      "to": "user3@example.com",
+      "subject": "Welcome User 3",
+      "body": "Hello User 3, welcome to our service!",
+      "htmlBody": "<h1>Welcome!</h1><p>Hello User 3, welcome to our service!</p>"
+    }
+  ]
+}
+
+### Test Invalid Email
+POST {{baseUrl}}/api/email/send
+X-API-Key: {{apiKey}}
+Content-Type: application/json
+
+{
+  "to": "invalid-email",
+  "subject": "Test",
+  "body": "This should fail validation"
+}
+
+### Test Missing API Key
+POST {{baseUrl}}/api/email/send
+Content-Type: application/json
+
+{
+  "to": "user@example.com",
+  "subject": "Test",
+  "body": "Missing API Key"
+}
+
+### Test Invalid API Key
+POST {{baseUrl}}/api/email/send
+X-API-Key: wrong-api-key
+Content-Type: application/json
+
+{
+  "to": "user@example.com",
+  "subject": "Test",
+  "body": "Invalid API Key"
+}
