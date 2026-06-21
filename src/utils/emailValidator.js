@@ -1,7 +1,7 @@
-const validator = require('email-validator');
+const validator = require('validator');
 
 function validateEmail(email) {
-  return validator.validate(email);
+  return validator.isEmail(email);
 }
 
 function validateEmailArray(emails) {
